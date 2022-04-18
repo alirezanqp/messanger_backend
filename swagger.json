@@ -1,0 +1,31 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "description": "backend api for messenger",
+    "version": "1.0",
+    "title": "Messanger API",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+        "email": "alirezanqp@gmail.com"
+    },
+    "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "127.0.0.1",
+    "basePath": "/api/v1",
+    "tags": [
+        {
+            "name": "user",
+            "description": "Operations about user",
+            "externalDocs": {
+            "description": "Find out more about our store",
+            "url": "http://swagger.io"
+            }
+        }
+    ],
+    "schemes": [
+        "http"
+    ]
+}
