@@ -1,10 +1,10 @@
-const { register } = require('../../controllers/authController')
+const { register, login } = require('../../controllers/authController')
+const { registerValidator, validate, loginValidator } = require('../../validator/auth')
 
 const router = require('express').Router()
 
+router.post('/auth/register' ,registerValidator(), validate, register)
 
-router.post('/auth/register' , register)
-
-router.post('/auth/login', )
+router.post('/auth/login', loginValidator(), validate, login)
 
 module.exports  = router
