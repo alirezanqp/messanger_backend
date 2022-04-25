@@ -1,5 +1,5 @@
 const { PrismaClient } = require('@prisma/client')
-const bcrypt = require('bcrypt')
+const { compare, hash } = require('../services/hash')
 const { sign } = require('../services/TokenService')
 const prisma = new PrismaClient()
 
@@ -27,8 +27,8 @@ module.exports.register = async(req, res, next) => {
         const { username, email } = req.body
 
         // hash password 
-        const salt = await bcrypt.genSalt(10)
-        const password = await bcrypt.hash(req.body.password, salt)
+        
+        const password = await hash(req.body.password)
 
         //save user data
         await prisma.user.create({
@@ -64,7 +64,7 @@ module.exports.login = async(req, res, next) => {
     }
 
     // check password validation
-    const isValid = await bcrypt.compare(req.body.password, user.password)
+    const isValid = await compare(req.body.password, user)
     if (!isValid) {
         return res.status(400).json({ msg: 'اطلاعات وارد شده اشتباه است'})
     }
