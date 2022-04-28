@@ -38,7 +38,11 @@ module.exports.register = async(req, res, next) => {
               password
             } 
         })
-        res.status(200).json({ msg: 'ثبت نام با موفقیت انجام شد'})
+        res.status(201).json({
+            success: true,
+            status: 200,
+            msg: 'ثبت نام با موفقیت انجام شد'
+        })
     } catch (error) {
         console.log(error)
     }

@@ -3,8 +3,8 @@ const { registerValidator, validate, loginValidator } = require('../../validator
 
 const router = require('express').Router()
 
-router.post('/auth/register' ,registerValidator(), validate, register)
+router.post('/register' ,registerValidator(), validate, register)
 
-router.post('/auth/login', loginValidator(), validate, login)
+router.post('/login', loginValidator(), validate, login)
 
 module.exports  = router

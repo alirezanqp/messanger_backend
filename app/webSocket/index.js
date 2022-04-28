@@ -1,9 +1,6 @@
-const { createServer } = require('http')
 const { Server } = require('socket.io')
 
-module.exports = (app) => {
-
-    const httpServer = createServer(app) 
+module.exports = (httpServer) => {
 
     const io = new Server (httpServer, {
         cors: {
@@ -19,6 +16,4 @@ module.exports = (app) => {
             console.log('User Disconnected! - ', socket.id)
         })
     })
-
-    httpServer.listen(4000)
 }
