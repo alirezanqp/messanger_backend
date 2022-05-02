@@ -7,11 +7,8 @@ exports.sign = (data) => {
 }
 
 exports.findToken = (req) => {
-    const auth = req.header('authorization')
-    if (!auth || auth === undefined) return false;
-
-    const [bearer, token] = auth.split(' ')
-    if (!token) return false;
+    const token = req.header('authorization')
+    if (!token || token === undefined) return false;
 
     return token
 }
@@ -26,5 +23,6 @@ exports.verify = (token) => {
 }
 
 exports.decode = (token) => {
-  return jwt.decode(token, process.env.APP_SECRET)
+  const payload = jwt.decode(token, process.env.APP_SECRET)
+  return payload
 }

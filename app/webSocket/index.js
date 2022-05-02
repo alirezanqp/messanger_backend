@@ -4,7 +4,7 @@ module.exports = (httpServer) => {
 
     const io = new Server (httpServer, {
         cors: {
-            origin: 'http://*:3000/',
+            origin: '*',
             methods: ['GET', 'POST']
         }
     })

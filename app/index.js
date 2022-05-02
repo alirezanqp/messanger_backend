@@ -4,13 +4,14 @@ const app = express()
 
 const httpServer = createServer(app)
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
   res.send('Hello')
-})
+})*/
 
-require('./webSocket')(httpServer)
+require('./database/mongo')()
 require('./middlewares')(app)
 require('./routes')(app)
+require('./webSocket')(httpServer)
 require('./middlewares/swagger')(app)
 require('./middlewares/exception')(app)
 require('./middlewares/404')(app)
