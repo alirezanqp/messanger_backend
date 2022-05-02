@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     return res.status(401).send({
       status: 'error',
       code: 401,
-      msg: 'you are not autherized!'
+      message: 'you are not autherized!'
     })
   }
   const token = tokenService.verify(req.headers.authorization)
@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     return res.status(401).send({
       status: 'error',
       code: 401,
-      msg: 'your token is not valid!'
+      message: 'your token is not valid!'
     })
   }
   next()

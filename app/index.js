@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 require('../database/mongo')()
-require('./websocket')
+//require('./websocket')
 require('./middlewares')(app)
 require('./routes')(app)
 require('./middlewares/swagger')(app)

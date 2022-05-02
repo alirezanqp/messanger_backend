@@ -12,7 +12,7 @@ module.exports.register = async(req, res, next) => {
             },
         })
         if (usernameCheck) {
-            return res.status(400).json({ msg: 'نام کاربری تکراری می باشد'})
+            return res.status(400).json({ message: 'نام کاربری تکراری می باشد'})
         }
         // check user email
         const user = await prisma.user.findUnique({
@@ -21,7 +21,7 @@ module.exports.register = async(req, res, next) => {
             },
         })
         if (user) {
-            return res.status(400).json({ msg: 'کاربری با این ایمیل در سیستم وجود دارد.'})
+            return res.status(400).json({ message: 'کاربری با این ایمیل در سیستم وجود دارد.'})
         }
         
         const { username, email } = req.body
@@ -38,9 +38,9 @@ module.exports.register = async(req, res, next) => {
               password
             } 
         })
-        res.status(200).json({ msg: 'ثبت نام با موفقیت انجام شد'})
+        res.status(200).json({ message: 'ثبت نام با موفقیت انجام شد'})
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 }
 
@@ -60,13 +60,13 @@ module.exports.login = async(req, res, next) => {
         }
     })
     if (!user) {
-        return res.status(400).json({ msg: 'اطلاعات وارد شده اشتباه است'})
+        return res.status(400).json({ message: 'اطلاعات وارد شده اشتباه است'})
     }
 
     // check password validation
     const isValid = await compare(req.body.password, user)
     if (!isValid) {
-        return res.status(400).json({ msg: 'اطلاعات وارد شده اشتباه است'})
+        return res.status(400).json({ message: 'اطلاعات وارد شده اشتباه است'})
     }
 
     // login success and send token

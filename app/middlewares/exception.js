@@ -4,8 +4,8 @@ module.exports = (app) => {
     res.send({
       status,
       code: 'Exception',
-      en_msg: error.message,
-      fa_msg: 'خطایی در عملیات مورد نظر رخ داده است'
+      en_message: error.message,
+      fa_message: 'خطایی در عملیات مورد نظر رخ داده است'
     })
   })
 }
