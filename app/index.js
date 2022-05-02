@@ -4,6 +4,10 @@ const app = express()
 
 const httpServer = createServer(app)
 
+app.get('/', (req, res) => {
+  res.send('Hello')
+})
+
 require('./webSocket')(httpServer)
 require('./middlewares')(app)
 require('./routes')(app)
