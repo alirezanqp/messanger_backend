@@ -12,6 +12,10 @@ module.exports = (httpServer) => {
     io.on('connection', (socket) => {
         console.log(socket.id)
 
+        socket.on('message', (data) => {
+            io.sockets.emit('chat message', data)
+        })
+    
         socket.on('disconnect', () => {
             console.log('User Disconnected! - ', socket.id)
         })
