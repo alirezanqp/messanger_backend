@@ -1,6 +1,6 @@
 const User = require('../models/User')
 
-exports.init = (req, res, next) => {
+exports.init = async (req, res, next) => {
     try {
         const token = findToken(req)
         const id = decode(token).id
