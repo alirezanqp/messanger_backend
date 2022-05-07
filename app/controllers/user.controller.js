@@ -2,9 +2,16 @@ const User = require("../models/User")
 const { decode, findToken } = require("../services/TokenService")
 
 exports.getAllUsers = async(req, res, next) => {
-    const users = await User.find({}, 'username profile')
+    const users = await User.find({}, 'username profile').exec()
 
-    res.json(users)
+    if (users) {
+        return res
+            .status(200)
+            .json(users)
+            .end();
+    } else {
+        return res.status(404).json({ error: 'کاربری وجود ندارد!' });
+    }
 }
 
 exports.updateProfile = async (req, res, next) => {
@@ -34,20 +41,6 @@ exports.updateProfile = async (req, res, next) => {
             message: 'پروفایل با موفقیت بروزرسانی شد'
         })
 
-    } catch (error) {
-        next(error)
-    }
-}
-
-exports.getProfile = async (req, res, next) => {
-    try {
-        const token = findToken(req)
-        const id = decode(token).id
-        
-        const user = await User.findById(id, 'profile')
-        res.status(200).json({
-            user
-        })
     } catch (error) {
         next(error)
     }
