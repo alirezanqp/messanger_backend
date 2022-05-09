@@ -17,13 +17,9 @@ const roomSchema = new Schema(
             required: true,
             ref: 'User'
         },
-        access: {
-            type: Boolean,
-            default: true
-        },
-        accessIds: {
-            type: Array,
-            default: []
+        latestMessage: {
+            type: Schema.Types.ObjectId,
+            ref: "Message",
         },
         users: [
             {

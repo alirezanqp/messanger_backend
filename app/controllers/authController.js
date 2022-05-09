@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const { compare, hash } = require('../services/hash')
 const { sign } = require('../services/TokenService')
+const gravatar = require('gravatar');
 
 module.exports.register = async(req, res, next) => {
     try {
@@ -26,12 +27,15 @@ module.exports.register = async(req, res, next) => {
         // hash password 
         
         const password = await hash(req.body.password)
-
+        
         //save user data
         const newUser = new User({
             email,
             username,
-            password
+            password,
+            profile :{
+                name: username,
+            }
         })
         
         await newUser.save()
