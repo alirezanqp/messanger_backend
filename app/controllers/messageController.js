@@ -41,7 +41,7 @@ exports.getRoomMessages = async(req, res, next) => {
 
 exports.getChatMessages = async(req, res, next) => {
     try {
-        const messages = await Message.find({ room: req.param.chat_id })
+        const messages = await Message.find({ room: req.body.chat_id })
 
         if (!messages) {
             return res.status(404).json({ message: 'پیامی وجود ندارد' });

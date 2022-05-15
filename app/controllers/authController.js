@@ -11,6 +11,7 @@ module.exports.register = async(req, res, next) => {
         const usernameCheck = await User.findOne({
             username: username
         })
+        
         if (usernameCheck) {
             return res.status(400).json({ message: 'نام کاربری تکراری می باشد'})
         }

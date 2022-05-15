@@ -10,21 +10,44 @@ module.exports = (httpServer) => {
         }
     })
 
+    const users = []
+
+    const addUser = (userId, socketId) => {
+        !users.some(user => userId === userId) && 
+            users.push({ userId, socketId})
+    }
+
+    const removeUser = (socketId) => {
+        users = users.filter(user => user.socketId !== socketId)
+    }
+
+    const getUser = (userId) => {
+        return users.find(user => user.userId === userId)
+    }
+
     io.on('connection', (socket) => {
         console.log(socket.id)
+
+        // Add User
+        socket.on('addUser', (userId) => {
+            addUser(userId, socket.id)
+            io.emit("getUsers", users)
+        })
 
         // New Message Event
         socket.on('newChatMessage', async (data) => {
             const newMessage = await ADD_CHAT_MESSAGE(data)
 
-            io.to(data.chat._id).emit('receivedNewMessage', JSON.stringify(newMessage));
+            io.to(data.chatId).emit('receivedNewMessage', JSON.stringify(newMessage));
         })
+
         socket.on('message', (data) => {
             io.sockets.emit('chat message', data)
         })
     
         socket.on('disconnect', () => {
-            console.log('User Disconnected! - ', socket.id)
+            removeUser(socket.id)
+            io.emit("getUsers", users)
         })
     })
 }

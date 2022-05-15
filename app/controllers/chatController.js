@@ -22,5 +22,30 @@ exports.getAllChats = async (req, res, next) => {
 }
 
 exports.createNewChat = async (req, res, next) => {
+    try {
+        
+        const newChat = new Chat({
+            user: req.body.senderId,
+            participant: {
+                lookup: req.body.receiverId,
+                socketId : req.body.socketId
+            }
+        })
     
+        await newChat.save()
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getChat = async (req, res, next) => {
+    try {
+        const token = findToken(req)
+        const id = decode(token).id
+    
+        const chat = Chat.findOne({ user: req.body.id , participant: { }})
+    } catch (error) {
+        
+    }
 }
